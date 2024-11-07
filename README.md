@@ -1,9 +1,3 @@
-# Music Knowledge Graph Generator
-
-A comprehensive project to generate an RDF knowledge graph from music data, integrating structured data from CSV files with external data from DBpedia and Wikipedia. The project is designed for knowledge representation and reasoning (KRR) tasks and aims to provide a detailed knowledge graph of albums, artists, and related metadata.
-
----
-
 ## Project Overview
 
 The **Music Knowledge Graph Generator** builds a knowledge graph that merges local tabular data about music albums and artists with additional structured data from DBpedia. It extends knowledge with information about band members, cities, countries of origin, and other relevant details by dynamically querying DBpedia and extracting roles from Wikipedia summaries.
