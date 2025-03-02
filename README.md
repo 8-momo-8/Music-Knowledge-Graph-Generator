@@ -1,34 +1,94 @@
-## Project Overview
+# Music Album Knowledge Graph Project
 
-The **Music Knowledge Graph Generator** builds a knowledge graph that merges local tabular data about music albums and artists with additional structured data from DBpedia. It extends knowledge with information about band members, cities, countries of origin, and other relevant details by dynamically querying DBpedia and extracting roles from Wikipedia summaries.
+This project creates an RDF knowledge graph from music album data, integrates it with DBpedia, and performs various analyses using SPARQL queries.
 
-### Key Features
+## Project Structure
 
-1. **Data Integration and Enrichment**:
-   - Loads and combines two CSV files containing music data (albums, artists, genres, ratings, etc.).
-   - Constructs RDF triples to represent album, artist, and genre relationships.
-   - Enriches the knowledge graph by querying DBpedia for additional information about artists and bands.
-  
-2. **Structured and Unstructured Data Fusion**:
-   - Retrieves structured information about band members and places of origin from DBpedia.
-   - Uses Wikipedia summaries to identify roles and instruments associated with band members, enriching the knowledge graph with unstructured data.
+```
+.
+├── data/                     # Contains CSV data files
+│   ├── albumlist.csv         # Album metadata
+│   └── rym_top_5000_all_time.csv  # Top 5000 albums data
+├── 1.ttl                     # Output RDF graph in Turtle format
+├── krr2_project.ipynb  # Main project notebook
+└── requirements.txt          # Python dependencies
+```
 
-3. **Automated RDF Graph Construction**:
-   - Adds RDF triples for albums, artists, genres, and band members, using custom namespaces and standard vocabularies like DBpedia (`dbp`), RDFS, and RDF.
-   - Outputs the final knowledge graph as RDF, which can be queried using SPARQL.
+## Requirements
 
-## Prerequisites
+- Python 3.8+
+- Required packages:
+  - rdflib
+  - SPARQLWrapper
+  - owlrl
+  - gdown
+  - pandas
+  - wikipedia-api
 
-Before running the project, ensure the following libraries are installed:
 
-- `rdflib`
-- `SPARQLWrapper`
-- `owlrl`
-- `gdown`
-- `pandas`
-- `wikipedia-api`
+## Project Steps
 
-Install them using the following command:
+1. **Create RDF Graph from CSV Data**
+   - Loads album data from CSV files
+   - Creates RDF triples for albums, artists, genres, and release dates
+   - Uses custom and standard namespaces (DBpedia, RDF, RDFS)
 
+2. **Integrate with DBpedia**
+   - Extends local knowledge graph with DBpedia data:
+     - Band members
+     - Birth places
+     - Founding locations
+   - Uses SPARQL queries to fetch additional information
+
+3. **Extract Information from Wikipedia**
+   - Retrieves artist roles from Wikipedia summaries
+   - Adds role information to the knowledge graph
+
+4. **Create Ontology and Taxonomy**
+   - Defines classes (Person, Band, MusicAlbum)
+   - Creates genre taxonomy with subClassOf relationships
+   - Adds domain and range constraints for properties
+
+5. **Materialize Inferences**
+   - Uses OWL reasoning to infer additional facts:
+     - Genre inheritance
+     - Type inference based on domains/ranges
+     - Nationality inference for band members
+
+6. **Query the Knowledge Graph**
+   - Example SPARQL queries demonstrating:
+     - Band member nationality analysis
+     - Artist involvement in multiple bands
+     - Genre popularity by country
+     - Artist connections and collaborations
+
+## Usage
+
+1. Run the Jupyter notebook:
 ```bash
-pip install rdflib sparqlwrapper owlrl gdown pandas wikipedia-api
+jupyter notebook krr2_project.ipynb
+```
+
+2. Execute cells sequentially to:
+   - Download data
+   - Build the knowledge graph
+   - Integrate with DBpedia
+   - Run analyses
+
+## Example Queries
+
+The notebook includes several example SPARQL queries that demonstrate:
+- Finding bands with international members
+- Identifying artists involved in multiple bands
+- Analyzing genre popularity by country
+- Discovering artist connections and collaborations
+
+## Data Sources
+
+- Album data from CSV files
+- DBpedia for additional artist/band information
+- Wikipedia for artist role information
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
